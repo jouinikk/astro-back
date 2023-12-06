@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/astro
+    username: postgres
+    password: pass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # or validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
