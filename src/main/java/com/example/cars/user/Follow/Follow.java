@@ -1,4 +1,4 @@
-package com.example.cars.Publication.Follow;
+package com.example.cars.user.Follow;
 
 import com.example.cars.user.User;
 import jakarta.persistence.*;
@@ -12,6 +12,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Follow {
+
+    public Follow(User follower,User following){
+        this.follower=follower;
+        this.following=following;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

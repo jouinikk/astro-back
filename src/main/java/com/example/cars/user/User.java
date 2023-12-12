@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +32,11 @@ public class User implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role ;
+    private String profilePic;
+    private String bio;
+
+    @ColumnDefault("false")
+    private boolean locked = false;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -53,7 +59,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override

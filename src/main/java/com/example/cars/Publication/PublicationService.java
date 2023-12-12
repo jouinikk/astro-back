@@ -25,6 +25,10 @@ public class PublicationService {
         return publicationRepository.findAll();
     }
 
+    public Publication getPublicationById(int id){
+        return publicationRepository.findById(id).get();
+    }
+
     public List<Publication> getByUserId(int userid){
         return publicationRepository.findByUserId(userid);
     }
@@ -42,21 +46,27 @@ public class PublicationService {
         return reactRepository.save(l);
     }
 
-    public List<React> getReactsByPublication(int id){
-        return reactRepository.findReactByPublicationid(id);
+    public List<React> getReactsByPublicationid(int i)
+    {
+        Publication p = publicationRepository.findById(i).get();
+        return reactRepository.findReactByPublicationid(p);
     }
 
     public void deleteReact(int id){
         reactRepository.deleteById(id);
     }
-    //comment
 
+    //comment
     public Comment comment(Comment c){
         return commentRepository.save(c);
     }
 
     public List<Comment> getCommentsByPostId(int id){
         return commentRepository.findCommentByPublicationidId(id);
+    }
+
+    public void deleteComment(int id){
+        commentRepository.deleteById(id);
     }
 
 

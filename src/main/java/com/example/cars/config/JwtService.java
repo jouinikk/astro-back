@@ -44,6 +44,8 @@ public class JwtService {
             extraClaims.put("lastName",user.getLastName());
             extraClaims.put("id",user.getId());
             extraClaims.put("role",user.getRole());
+            extraClaims.put("bio",user.getBio());
+            extraClaims.put("profilePic",user.getProfilePic());
         }
 
     return Jwts.builder()

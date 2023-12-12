@@ -12,5 +12,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     List<User> findUsersByFirstNameAndLastName(String first, String last);
 
 
+    List<User> findUsersByFirstName(String first);
 }
 
