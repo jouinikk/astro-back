@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FollowRequest {
-    private User follower;
-    private User following;
+    private int follower;
+    private int following;
 }

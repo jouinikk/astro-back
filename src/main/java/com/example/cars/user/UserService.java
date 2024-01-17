@@ -25,16 +25,48 @@ public class UserService {
     }
 
     public User getUserById(int id) throws NoSuchElementException {
-        return  userRepository.findById(id).get();
+        return userRepository.findById(id).get();
     }
 
     public List<User> getUser(String first, String last) {
         return userRepository.findUsersByFirstNameAndLastName(first,last);
     }
 
+    public List<User> getLockedUsers(){
+        List<User> users = users();
+        List<User> lockedUsers = new ArrayList<>();
+
+        for(User u:users){
+           if(u.isLocked()) lockedUsers.add(u);
+        }
+        return lockedUsers;
+    }
+
+    public List<User> getUnlockedUsers(){
+        List<User> users = users();
+        List<User> unlockedUsers = new ArrayList<>();
+
+        for(User u:users){
+            if(!u.isLocked()) unlockedUsers.add(u);
+        }
+        return unlockedUsers;
+    }
+
     public Follow follow(User follower,User following){
         Follow follow = new Follow(follower,following);
         return followRepository.save(follow);
+    }
+
+    public void unFollow(int follower,int following){
+        User theFollower = userRepository.findById(follower).get();
+        User theFollowing = userRepository.findById(following).get();
+        List<Follow> follows= followRepository.findFollowByFollowerAndFollowing(theFollower,theFollowing);
+        followRepository.deleteAll(follows);
+    }
+
+    public boolean checkFollow(User follower,User user){
+        List<User> followings  = getfollowing(follower.getId());
+        return followings.contains(user);
     }
 
     public List<User> getUsersByName(String first, String last) {
@@ -64,5 +96,24 @@ public class UserService {
             users.add(follow.getFollower());
         }
         return users;
+    }
+
+    public List<User> explore(int id){
+        User theUser = userRepository.findById(id).get();
+        List<User> users = users();
+        List<User> followings = this.getfollowing(id);
+        List<User> news = new ArrayList<>();
+        for(User user:users){
+            if(!followings.contains(user) && !(theUser.getId()==user.getId())){
+                news.add(user);
+            }
+        }
+        return news;
+    }
+
+    public User unlockAccount(int id) {
+        User user = userRepository.findById(id).get();
+        user.setLocked(false);
+        return userRepository.save(user);
     }
 }

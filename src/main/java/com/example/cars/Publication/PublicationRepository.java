@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface PublicationRepository extends JpaRepository<Publication,Integer> {
-    List<Publication> findByUserId(int userid);
+    List<Publication> findByUserIdOrderByCreatedAt(int userid);
 }

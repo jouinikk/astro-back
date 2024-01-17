@@ -24,7 +24,7 @@ public class FlagService {
     public Flag deleteFlag(int i){
 
         Flag f  = repository.findById(i).get();
-        this.repository.delete(f);
+        this.repository.deleteById(i);
         return f;
     }
 

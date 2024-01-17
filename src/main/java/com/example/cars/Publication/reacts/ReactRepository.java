@@ -10,4 +10,7 @@ import java.util.List;
 public interface ReactRepository extends JpaRepository<React,Integer> {
 
     List<React> findReactByPublicationid(Publication p);
+    List<React> findReactByPublicationidId(int id);
+    List<React> findReactByUseridId(int id);
+    List<React> findReactByPublicationidIdAndUseridId(int pub,int user);
 }
